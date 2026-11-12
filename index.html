@@ -37,7 +37,7 @@
       <canvas id="canvas" data-slint-auto-resize-to-preferred="true"></canvas>
     </main>
     <script type="module">
-      import init from "./pkg/slint_dashboard.js";
+      import init from "./pkg/slint_dashboard_lib.js";
       init().catch((error) => {
         if (!String(error).includes("Using exceptions for control flow")) {
           console.error("Could not start the Slint dashboard:", error);

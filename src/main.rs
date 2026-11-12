@@ -1,3 +1,3 @@
 fn main() -> Result<(), slint::PlatformError> {
-    slint_dashboard::main()
+    slint_dashboard_lib::main()
 }
