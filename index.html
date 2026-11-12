@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#172033">
+    <title>Slint Studio</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #e9edf4;
+        color: #172033;
+        font: 14px/1.5 system-ui, sans-serif;
+      }
+      main { width: min(100%, 1160px); padding: 20px; }
+      canvas {
+        display: block;
+        width: 100%;
+        height: auto;
+        min-height: 600px;
+        background: #f5f7fb;
+        border-radius: 14px;
+        box-shadow: 0 16px 48px #17203320;
+      }
+      @media (max-width: 820px) {
+        main { padding: 0; }
+        canvas { min-height: 600px; border-radius: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <canvas id="canvas" data-slint-auto-resize-to-preferred="true"></canvas>
+    </main>
+    <script type="module">
+      import init from "./pkg/slint_dashboard.js";
+      init().catch((error) => {
+        if (!String(error).includes("Using exceptions for control flow")) {
+          console.error("Could not start the Slint dashboard:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

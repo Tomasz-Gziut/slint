@@ -1,0 +1,169 @@
+import { Button, CheckBox } from "std-widgets.slint";
+
+component StatCard inherits Rectangle {
+    in property <string> label;
+    in property <string> value;
+    in property <string> note;
+
+    background: #ffffff;
+    border-color: #e7eaf0;
+    border-radius: 12px;
+    border-width: 1px;
+
+    VerticalLayout {
+        padding: 18px;
+        spacing: 8px;
+        Text {
+            text: root.label;
+            color: #687386;
+            font-size: 14px;
+        }
+        Text {
+            text: root.value;
+            color: #172033;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        Text {
+            text: root.note;
+            color: #258768;
+            font-size: 12px;
+        }
+    }
+}
+
+export component MainWindow inherits Window {
+    title: "Slint Dashboard";
+    width: 1120px;
+    height: 760px;
+    background: #f5f7fb;
+
+    in-out property <string> status-message: "Your workspace is ready.";
+
+    HorizontalLayout {
+        spacing: 0px;
+
+        Rectangle {
+            width: 220px;
+            background: #172033;
+
+            VerticalLayout {
+                padding-top: 24px;
+                padding-left: 18px;
+                padding-right: 18px;
+                spacing: 28px;
+
+                Text {
+                    text: "slint / studio";
+                    color: #ffffff;
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                VerticalLayout {
+                    spacing: 10px;
+                    Text { text: "OVERVIEW"; color: #8792a6; font-size: 11px; }
+                    Text { text: "◉  Dashboard"; color: #ffffff; font-size: 15px; }
+                    Text { text: "▣  Projects"; color: #b7c0d0; font-size: 15px; }
+                    Text { text: "⚙  Settings"; color: #b7c0d0; font-size: 15px; }
+                }
+
+                Rectangle { vertical-stretch: 1; }
+
+                Text {
+                    text: "Built with Rust + Slint";
+                    color: #8792a6;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        VerticalLayout {
+            padding: 28px;
+            spacing: 22px;
+
+            HorizontalLayout {
+                spacing: 16px;
+                VerticalLayout {
+                    spacing: 4px;
+                    Text { text: "Dashboard"; color: #172033; font-size: 28px; font-weight: 700; }
+                    Text { text: "A simple workspace for your projects."; color: #687386; font-size: 14px; }
+                }
+                Rectangle { horizontal-stretch: 1; }
+                Button {
+                    text: "＋  New project";
+                    clicked => {
+                        root.status-message = "Your new project is ready to configure.";
+                    }
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 14px;
+                StatCard { horizontal-stretch: 1; label: "Active projects"; value: "08"; note: "↑ 2 this month"; }
+                StatCard { horizontal-stretch: 1; label: "Tasks completed"; value: "24"; note: "↑ 12% this week"; }
+                StatCard { horizontal-stretch: 1; label: "Team members"; value: "06"; note: "All members active"; }
+            }
+
+            Rectangle {
+                background: #ffffff;
+                border-color: #e7eaf0;
+                border-radius: 12px;
+                border-width: 1px;
+                vertical-stretch: 1;
+
+                VerticalLayout {
+                    padding: 22px;
+                    spacing: 14px;
+
+                    Text { text: "Recent activity"; color: #172033; font-size: 18px; font-weight: 700; }
+                    Text { text: root.status-message; color: #687386; font-size: 14px; }
+                    Rectangle { height: 1px; background: #edf0f5; }
+
+                    HorizontalLayout {
+                        spacing: 12px;
+                        Rectangle {
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 19px;
+                            background: #e6f4ef;
+                            Text { text: "✓"; color: #258768; font-size: 18px; horizontal-alignment: center; vertical-alignment: center; }
+                        }
+                        VerticalLayout {
+                            Text { text: "Design system updated"; color: #172033; font-size: 14px; }
+                            Text { text: "The component library is ready for review"; color: #8792a6; font-size: 12px; }
+                        }
+                        Rectangle { horizontal-stretch: 1; }
+                        Text { text: "10 min ago"; color: #8792a6; font-size: 12px; }
+                    }
+
+                    HorizontalLayout {
+                        spacing: 12px;
+                        Rectangle {
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 19px;
+                            background: #eef0ff;
+                            Text { text: "↗"; color: #5966c5; font-size: 18px; horizontal-alignment: center; vertical-alignment: center; }
+                        }
+                        VerticalLayout {
+                            Text { text: "Desktop app build passed"; color: #172033; font-size: 14px; }
+                            Text { text: "Windows release is ready to test"; color: #8792a6; font-size: 12px; }
+                        }
+                        Rectangle { horizontal-stretch: 1; }
+                        Text { text: "Yesterday"; color: #8792a6; font-size: 12px; }
+                    }
+
+                    Rectangle { vertical-stretch: 1; }
+                    CheckBox {
+                        text: "Send me a weekly activity summary";
+                        checked: true;
+                        toggled => {
+                            root.status-message = "Notification preference updated.";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
